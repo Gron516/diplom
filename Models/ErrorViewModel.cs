@@ -1,4 +1,4 @@
-namespace WebApplication3.Models
+namespace RecipeService.Models
 {
     public class ErrorViewModel
     {
