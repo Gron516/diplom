@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Net.WebSockets;
-using RecipeService.Models;
+ï»¿using Microsoft.AspNetCore.Mvc;
 using RecipeService.Services;
 
 namespace RecipeService.Controllers
@@ -15,12 +12,12 @@ namespace RecipeService.Controllers
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                ViewBag.Name = "„B„ „x„p„q„„|„y „r„r„u„ƒ„„„y „~„p„x„r„p„~„y„u";
+                ViewBag.Name = "Ğ’Ñ‹ Ğ·Ğ°Ğ±Ñ‹Ğ»Ğ¸ Ğ²Ğ²ĞµÑÑ‚Ğ¸ Ğ½Ğ°Ğ·Ğ²Ğ°Ğ½Ğ¸Ğµ";
                 return View();
             }
             else
             {
-                var lowerCaseName = name.ToLower(); // „P„‚„u„€„q„‚„p„x„€„r„p„~„y„u „r „~„y„w„~„y„z „‚„u„s„y„ƒ„„„‚
+                var lowerCaseName = name.ToLower(); // ĞŸÑ€ĞµĞ¾Ğ±Ñ€Ğ°Ğ·Ğ¾Ğ²Ğ°Ğ½Ğ¸Ğµ Ğ² Ğ½Ğ¸Ğ¶Ğ½Ğ¸Ğ¹ Ñ€ĞµĞ³Ğ¸ÑÑ‚Ñ€
                 var result = CheckService.GetRecipe(lowerCaseName);
                 ViewBag.Name = result;
                 return View();

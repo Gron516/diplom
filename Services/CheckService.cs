@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Diagnostics.Eventing.Reader;
-using RecipeService.Models;
+﻿using RecipeService.Models;
 
 namespace RecipeService.Services
 {

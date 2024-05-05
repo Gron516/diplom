@@ -1,6 +1,5 @@
 ﻿namespace RecipeService.Models
 {
-    //[Table("drugs", Schema = "public")]
     public class Drug
     {
         public int Id { get; set; }
