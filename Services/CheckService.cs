@@ -1,20 +1,22 @@
 ﻿using RecipeService.Models;
+using System.Text;
 
 namespace RecipeService.Services
 {
-    public static class CheckService
+public static class CheckService
     {
-        public static string GetRecipe(string name)
+        public static async Task<string> GetRecipe(string name)
         {
 
             // получение данных
             using (ApplicationContext db = new ApplicationContext())
             {
                 // получаем объекты из бд и выводим на консоль
-                var drug = db.Drugs.Where(drug => drug.Name.ToLower() == name).SingleOrDefault();
+                var drug = db.Drugs.Where(drug => drug.Name.ToLower() == name.ToLower()).SingleOrDefault();
                 if (drug == null)
                 {
-                    return "такого препарата нет в базе данных";
+                    var recipe = await GetRecipeWithApi(name.ToLower());
+                    return recipe;  
                 }
                 if (drug.Recipe == null)
                 {
@@ -26,5 +28,40 @@ namespace RecipeService.Services
 
 
         }
+        
+        public static async Task<string> GetRecipeWithApi(string name) 
+        {
+            StringBuilder sb = new StringBuilder();
+
+            int currentPage = 0;
+            int pageCount = 1;
+            do
+            {
+                currentPage++;
+                HttpClient httpClient = new HttpClient();
+                // устанавливаем заголовк
+                httpClient.DefaultRequestHeaders.Add("X-Token", "iQpsJ5IHWdPv");
+                var serverAddress = $"https://www.vidal.ru/api/rest/v1/product/list?filter[name]={name}&page={currentPage}";
+                // выполняем запрос
+                using (var responseHttp = await httpClient.GetAsync(serverAddress))
+                {
+                    var content = await responseHttp.Content.ReadFromJsonAsync<Response>();
+                    //распарсит json
+                    var drugRecipeArray = content.Products;
+                    pageCount = content.Pagination.PageCount;
+                    foreach (var recipe in drugRecipeArray)
+                    {
+                        sb.AppendLine($"Название препарата:{recipe.RusName};");
+                        sb.AppendLine($"Форма:{recipe.ZipInfo};");
+                        sb.AppendLine($"Дозировка:{recipe.Document.Dosage};");
+                        sb.AppendLine("*********************************");
+                    }
+                }
+            }
+            while (pageCount > currentPage);
+
+            return sb.ToString();
+        } 
     }
+
 }

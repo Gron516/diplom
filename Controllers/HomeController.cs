@@ -8,7 +8,7 @@ namespace RecipeService.Controllers
         [HttpGet]
         public IActionResult Index() => View();
         [HttpPost]
-        public IActionResult Index(string name)
+        public async Task<IActionResult> Index(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -17,8 +17,7 @@ namespace RecipeService.Controllers
             }
             else
             {
-                var lowerCaseName = name.ToLower(); // Преобразование в нижний регистр
-                var result = CheckService.GetRecipe(lowerCaseName);
+                var result = await CheckService.GetRecipe(name);
                 ViewBag.Name = result;
                 return View();
             }
