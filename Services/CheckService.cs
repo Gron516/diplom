@@ -45,6 +45,8 @@ public static class CheckService
                 // выполняем запрос
                 using (var responseHttp = await httpClient.GetAsync(serverAddress))
                 {
+                    var debugInfo = await responseHttp.Content.ReadAsStringAsync();
+                    Console.WriteLine(debugInfo);
                     var content = await responseHttp.Content.ReadFromJsonAsync<Response>();
                     //распарсит json
                     var drugRecipeArray = content.Products;

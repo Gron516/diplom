@@ -22,7 +22,19 @@ namespace RecipeService.Controllers
                 return View();
             }
         }
-
+        [HttpPost("recipe")]
+        public async Task<string> GetRecipe(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return "Передайте название";
+            }
+            else
+            {
+                var result = await CheckService.GetRecipe(name);
+                return result;
+            }
+        }
 
     }
 
