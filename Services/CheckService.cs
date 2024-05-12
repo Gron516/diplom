@@ -51,10 +51,10 @@ public static class CheckService
                     pageCount = content.Pagination.PageCount;
                     foreach (var recipe in drugRecipeArray)
                     {
-                        sb.AppendLine($"Название препарата:{recipe.RusName};");
-                        sb.AppendLine($"Форма:{recipe.ZipInfo};");
-                        sb.AppendLine($"Дозировка:{recipe.Document.Dosage};");
-                        sb.AppendLine("*********************************");
+                        sb.AppendLine($"Название препарата: {recipe.RusName}<br>");
+                        sb.AppendLine($"Форма: {recipe.ZipInfo}<br>");
+                        sb.AppendLine($"Дозировка: {recipe.Document.Dosage}<br>");
+                        sb.AppendLine("****************************************************<br>");
                     }
                 }
             }

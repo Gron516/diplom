@@ -4,4 +4,4 @@
     <input type="text" name="name" /><br />
     <input type="submit" value="Send" />
 </form>
-<h2>@ViewBag.Name</h2>
+@Html.Raw(@ViewBag.Name)
