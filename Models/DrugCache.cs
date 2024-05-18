@@ -1,6 +1,6 @@
 ﻿namespace RecipeService.Models
 {
-    public class Drug
+    public class DrugCache
     {
         public int Id { get; set; }
         public string Name { get; set; }

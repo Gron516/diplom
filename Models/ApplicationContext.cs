@@ -4,7 +4,8 @@
 
     public class ApplicationContext : DbContext
     {
-        public DbSet<Drug> Drugs { get; set; } = null!;
+        public DbSet<Drug> Drugs { get; set; }
+        public DbSet<DrugCache> СachedDrugs { get; set; }
 
         public ApplicationContext()
         {
