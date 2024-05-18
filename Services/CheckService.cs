@@ -68,7 +68,6 @@ public static class CheckService
                         var debugInfo = await responseHttp.Content.ReadAsStringAsync();
                         Console.WriteLine(debugInfo);
                         var content = await responseHttp.Content.ReadFromJsonAsync<Response>();
-                        //распарсит json
                         var drugRecipeArray = content.Products;
                         pageCount = content.Pagination.PageCount;
                         foreach (var recipe in drugRecipeArray)
