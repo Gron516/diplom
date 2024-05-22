@@ -16,12 +16,6 @@ namespace RecipeService.Controllers
                 ViewBag.Name = "Значение слишком короткое. Должно быть больше 3х символов ";
                 return View();
             }
-
-                if (string.IsNullOrWhiteSpace(name))
-            {
-                ViewBag.Name = "Вы забыли ввести название";
-                return View();
-            }
             else
             {
                 var result = await CheckService.GetRecipe(name);
@@ -35,11 +29,6 @@ namespace RecipeService.Controllers
             if (!ModelState.IsValid)
             {
                 return "Значение слишком короткое. Должно быть больше 3х символов ";
-            }
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return "Передайте название";
             }
             else
             {
