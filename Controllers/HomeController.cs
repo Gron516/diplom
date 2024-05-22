@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecipeService.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace RecipeService.Controllers
 {
@@ -8,11 +9,11 @@ namespace RecipeService.Controllers
         [HttpGet]
         public IActionResult Index() => View();
         [HttpPost]
-        public async Task<IActionResult> Index(string name)
+        public async Task<IActionResult> Index([MinLength(3)] string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            if (!ModelState.IsValid)
             {
-                ViewBag.Name = "Вы забыли ввести название";
+                ViewBag.Name = "Значение слишком короткое. Должно быть больше 3х символов ";
                 return View();
             }
             else
@@ -23,11 +24,11 @@ namespace RecipeService.Controllers
             }
         }
         [HttpPost("recipe")]
-        public async Task<string> GetRecipe(string name)
+        public async Task<string> GetRecipe([MinLength(3)] string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            if (!ModelState.IsValid)
             {
-                return "Передайте название";
+                return "Значение слишком короткое. Должно быть больше 3х символов ";
             }
             else
             {
