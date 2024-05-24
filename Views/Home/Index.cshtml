@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "ПоискИнструкции";
+    var hasResults = !string.IsNullOrEmpty(ViewBag.Name); // Проверка наличия результатов
 }
 
 <div class="container">
@@ -17,6 +18,29 @@
     </div>
 </div>
 
+@if (hasResults)
+{
+    <div class="card results-card visible">
+        <div class="card-body">
+            <h3>Найдены следующие инструкции:</h3>
+            <div id="results">
+                @Html.Raw(ViewBag.Name)
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card results-card invisible">
+        <div class="card-body">
+            <h3>Найдены следующие инструкции:</h3>
+            <div id="results">
+                @Html.Raw(ViewBag.Name)
+            </div>
+        </div>
+    </div>
+}
+
 <style>
     .search-container {
         max-width: 400px;
@@ -25,9 +49,10 @@
     }
 
     .results-card {
-        width: 1000%;
+        display: none; /* Изначально скрываем карточку */
+        width: 100%; /* Ширина 100% */
+        max-width: 1200px; /* Максимальная ширина */
         text-align: justify;
-        max-width: 1200px;
         margin: 2rem auto;
         border: none;
         border-radius: 1rem;
@@ -36,8 +61,23 @@
         top: 50px; /* Расстояние от верхней границы кнопки до верхней границы новой карточки */
     }
 
+        .results-card.visible {
+            display: block; /* Делаем видимой, если есть результаты */
+        }
+
         .results-card .card-body {
             padding: 2rem;
         }
 </style>
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var results = '@Html.Raw(ViewBag.Name)';
+
+            if (results.trim() !== "") {
+                $('.results-card').addClass('visible').removeClass('invisible');
+            }
+        });
+    </script>
+}
