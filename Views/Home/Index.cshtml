@@ -1,7 +1,83 @@
-﻿<h2>Введите название препарата</h2>
-<form method="post">
-    <label>Название:</label><br />
-    <input type="text" name="name" /><br />
-    <input type="submit" value="Send" />
-</form>
-@Html.Raw(@ViewBag.Name)
+﻿@{
+    ViewData["Title"] = "ПоискИнструкции";
+    var hasResults = !string.IsNullOrEmpty(ViewBag.Name); // Проверка наличия результатов
+}
+
+<div class="container">
+    <div class="search-container">
+        <h2>Введите название препарата</h2>
+        <form method="post">
+            <div class="form-group">
+                <label for="inputTitle">Название:</label>
+                <input type="text" name="name" id="inputTitle" class="form-control" />
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Поиск</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (hasResults)
+{
+    <div class="card results-card visible">
+        <div class="card-body">
+            <h3>Найдены следующие инструкции:</h3>
+            <div id="results">
+                @Html.Raw(ViewBag.Name)
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card results-card invisible">
+        <div class="card-body">
+            <h3>Найдены следующие инструкции:</h3>
+            <div id="results">
+                @Html.Raw(ViewBag.Name)
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .search-container {
+        max-width: 400px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .results-card {
+        display: none; /* Изначально скрываем карточку */
+        width: 100%; /* Ширина 100% */
+        max-width: 1200px; /* Максимальная ширина */
+        text-align: justify;
+        margin: 2rem auto;
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        top: 50px; /* Расстояние от верхней границы кнопки до верхней границы новой карточки */
+    }
+
+        .results-card.visible {
+            display: block; /* Делаем видимой, если есть результаты */
+        }
+
+        .results-card .card-body {
+            padding: 2rem;
+        }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var results = '@Html.Raw(ViewBag.Name)';
+
+            if (results.trim() !== "") {
+                $('.results-card').addClass('visible').removeClass('invisible');
+            }
+        });
+    </script>
+}
