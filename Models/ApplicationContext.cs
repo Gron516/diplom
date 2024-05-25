@@ -12,7 +12,7 @@
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=RecipesServiceDb;Username=postgres;Password=123456");
+            optionsBuilder.UseNpgsql("Host=amvera-gron516-cnpg-diplombd-rw;Port=5432;Database=RecipesServiceDb;Username=gron;Password=123456");
         }
     }
 }
