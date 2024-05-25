@@ -9,7 +9,7 @@ namespace RecipeService.Controllers
         [HttpGet]
         public IActionResult Index() => View();
         [HttpPost]
-        public async Task<IActionResult> Index([MinLength(3)] string name)
+        public async Task<IActionResult> Index([MinLength(4)] string name)
         {
             if (!ModelState.IsValid)
             {
@@ -24,7 +24,7 @@ namespace RecipeService.Controllers
             }
         }
         [HttpPost("recipe")]
-        public async Task<string> GetRecipe([MinLength(3)] string name)
+        public async Task<string> GetRecipe([MinLength(4)] string name)
         {
             if (!ModelState.IsValid)
             {
